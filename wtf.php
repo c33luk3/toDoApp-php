@@ -219,7 +219,7 @@
       //   if($_POST["name"] === "emailInfo" && $_POST["password"] === "password") 
       //    echo "Acess granted"
         
-
+        <?php
         $name = $FN = $HK = $sigSauer = $glock = "";
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -237,19 +237,34 @@
           return $data;
         }
         ?>
-        <form method="post" action="
-        <?php
-        ?>">
-        Name: <input type="text" name="name">
+        <h2>kiuhiuluil</h2>
+        <form method="post" action="<?php echo formValidation($_SERVER["PHP_SELF"]);?>"
+        FN: <input type="text" name="FN">
         <br><br>
-        E-mail: <input type="text" name="FN">
+        HK: <input type="text" name="HK">
         <br><br>
-        Website: <input type="text" name="HK">
+        sigSauer: <input type="text" name="sigSauer">
+        <br><br>
+        glock: <input type="text name="glock">
         <br><br>
         Comment Section: <textarea name="comment" rows="5" cols="40"></textarea>
         <br><br>
+        input type="submit name="submit value="submit">
+        </form>
+
+        <?php       
+    
+        echo $FN;
+        echo "<br>";
+        echo $HK;
+        echo "<br>";
+        echo $sigSauer;
+        echo "<br>";
+        echo $glock;
+        echo "<br>";
         
-  ?>
+?>
+        
 
  </body>
  </html>
