@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>
 <html>
 <body>
-
+<h1>Dis duh Ta do App</h1>
 <form method="get" action ="<?php echo $_SERVER['PHP_SELF'];?>">
-      Enter Here: <input type="text" name="do it">
+      Enter Here: <input type="text" name="foo">
                   <input type="submit">
 </form>
+
 
 <?php
 
@@ -13,69 +14,43 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "TooDoApp";
-try {
-    $conn = new PDO("mysql:host=$servername", $username, $password);
-    
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "CREATE DATABASE TooDoApp";
-    
-    $conn->exec($sql);
-    echo "Database created successfully<br>";
-    }
-catch(PDOException $e)
-    {
-    echo $sql . "<br>" . $e->getMessage();
-    }
-
-$conn = null;
-
+$item = $_POST;
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $stmt = $conn->prepare("SELECT id, task FROM Mylist"); 
+    $stmt->execute();
 
-    
-    $sql = "CREATE TABLE ToDoList (
-    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-    id VARCHAR(30) NOT NULL,
-    task VARCHAR(30) NOT NULL,
-    stat VARCHAR(50),
-    reg_date TIMESTAMP
-    )";
+    $stmt ->setFetchMode(PDO::FETCH_ASSOC);
+    $mylist = $stmt->fetchALL();
 
 
-    $conn->exec($sql);
-    echo "Table ToDoList created successfully";
-    }
-catch(PDOException $e)
-    {
+    foreach ($mylist as $a) {
+        echo "<tr>";
+        echo "<td>" . $a["task"] . "</td>";
+        echo "<td>" . "<form method='post' action='./delete.php'>" . "<input hidden name ='id' value=".$a['id'].">
+        <input type ='submit' value = 'DONE'> </form>" . "</td>";
+        echo "</tr>";
+
+    } 
+}
+catch(PDOException $e) {
     echo $sql . "<br>" . $e->getMessage();
-    }
-
-$conn = null;
+}
 
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "TooDoApp";
 
-try {
-    $conn = new PDO ("mysql:host=$servername;dbname=$dbname", $username, $password);
-    
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "INSERT INTO ToDoList (id, task, status)
-    VALUES ('cook', 'clean', 'feed animals')";
+if ($_POST) {
+$item = $_POST["item"];
+}
+function validateItem($item) {
+    $item=trim('item');
+    $item=stripslashes('item');
+    $item=htmlspecialchars('item');
+    return $item;
+}
+validateItem($item);
 
-    $conn->exec($sql);
-    echo  "record created successfully";
-    }
-catch(PDOException $e)
-    {
-    echo $sql  . $e->getMessage();
-    }
 
-$conn = null;
 ?>
-
