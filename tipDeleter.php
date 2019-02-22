@@ -1,10 +1,10 @@
-<a href="2ooDoApp.php">Home</a>
+<a href="survivalTips.php">Home</a>
 <?php
 $id= $_POST['id'];
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "TooDoApp";
+$dbname = "survivalTips";
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -12,7 +12,7 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // sql to delete a record
-    $sql = "DELETE FROM mylist WHERE id=$id";
+    $sql = "DELETE FROM MyTips WHERE id=$id";
 
     // use exec() because no results are returned
     $conn->exec($sql);

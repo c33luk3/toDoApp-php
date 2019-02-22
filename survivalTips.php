@@ -1,12 +1,13 @@
 <!DOCTYPE HTML>
 <html>
 <body>
-<h1>The To Do CRUD Application</h1>
-<h2>Insert a Chore! Then select "Submit"</h2>
+<link rel='stylesheet' type='text/css' href= 'myheader.php'>
+<h1>Survival Tip adder</h1>
+<h2>Insert a Tip! Then select "Submit".</h2>
 
 <br>
-<form action="add.php" method="get" action ="<?php echo $_SERVER['PHP_SELF'];?>">
-      Enter chore here: <input type="text" name="foo">
+<form action="./tipAdder.php" method="get" action ="<?php echo $_SERVER['PHP_SELF'];?>">
+      Enter Tip here: <input type="text" name="tip">
                   <input type="submit">
                   
 </form>
@@ -17,23 +18,23 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "TooDoApp";
+$dbname = "survivalTips";
 $item = $_POST;
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $conn->prepare("SELECT id, task FROM Mylist"); 
+    $stmt = $conn->prepare("SELECT id, tip FROM MyTips"); 
     $stmt->execute();
 
     $stmt ->setFetchMode(PDO::FETCH_ASSOC);
-    $mylist = $stmt->fetchALL();
+    $myTips = $stmt->fetchALL();
 
 
-    foreach ($mylist as $a) {
+    foreach ($myTips as $T) {
         echo "<tr>";
-        echo "<td>" . $a["task"] . "</td>";
-        echo "<td>" . "<form method='post' action='./delete.php'>" . "<input hidden name ='id' value=".$a['id'].">
+        echo "<td>" . $T["tip"] . "</td>";
+        echo "<td>" . "<form method='post' action='./tipDeleter.php'>" . "<input hidden name ='id' value=".$T['id'].">
         <input type ='submit' value = 'DELETE'> </form>" . "</td>";
         echo "</tr>";
 

@@ -1,4 +1,4 @@
-<a href="2ooDoApp.php">Home</a>
+<a href="survivalTips.php">Home</a>
 <?php
 $servername = "localhost";
 $username = "root";
@@ -23,4 +23,3 @@ catch(PDOException $e)
 
 
 ?>
-
